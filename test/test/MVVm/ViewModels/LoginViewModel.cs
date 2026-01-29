@@ -8,5 +8,6 @@ namespace test.MVVm.ViewModels
 {
     internal class LoginViewModel
     {
+
     }
 }

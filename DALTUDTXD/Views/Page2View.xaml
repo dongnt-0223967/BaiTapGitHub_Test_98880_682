@@ -1,0 +1,399 @@
+<UserControl x:Class="DALTUDTXD.Views.Page2View"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:DALTUDTXD.Views"
+             xmlns:vm="clr-namespace:DALTUDTXD.ViewModels"  mc:Ignorable="d"
+             d:DesignHeight="650" d:DesignWidth="1000">
+
+    <UserControl.Resources>
+        <vm:CenterConverter x:Key="CenterConverter"/>
+        <vm:TextPositionConverter x:Key="TextPositionConverter"/>
+        <SolidColorBrush x:Key="primaryBackColor1Brush" Color="#1E1E1E"/>
+        <SolidColorBrush x:Key="secondaryBackColor1Brush" Color="#2F2F2F"/>
+        <SolidColorBrush x:Key="panelColorBrush" Color="#252525"/>
+        <SolidColorBrush x:Key="winBorderColor1Brush" Color="#3C3C3C"/>
+        <SolidColorBrush x:Key="color1Brush" Color="#5C9EFF"/>
+        <SolidColorBrush x:Key="color3Brush" Color="#62E8E2"/>
+        <SolidColorBrush x:Key="color9Brush" Color="#00EFB3"/>
+        <SolidColorBrush x:Key="titleColor1Brush" Color="#FFFFFF"/>
+        <SolidColorBrush x:Key="titleColor2Brush" Color="#DDDDDD"/>
+        <SolidColorBrush x:Key="plainTextColor1Brush" Color="#A0A0A0"/>
+        <SolidColorBrush x:Key="selectionBrush" Color="#5C9EFF" Opacity="0.5"/>
+
+        <Style x:Key="ModernTextBox" TargetType="TextBox">
+            <Setter Property="Margin" Value="2"/>
+            <Setter Property="Padding" Value="8,4,8,4"/>
+            <Setter Property="Width" Value="160"/>
+            <Setter Property="Height" Value="32"/>
+            <Setter Property="Background" Value="{StaticResource panelColorBrush}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource winBorderColor1Brush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="FontWeight" Value="Normal"/>
+            <Setter Property="Foreground" Value="{StaticResource titleColor1Brush}"/>
+            <Setter Property="CaretBrush" Value="{StaticResource color3Brush}"/>
+            <Setter Property="SelectionBrush" Value="{StaticResource selectionBrush}"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="6">
+                            <ScrollViewer Margin="2" x:Name="PART_ContentHost"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="PrimaryButton" TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource color1Brush}"/>
+            <Setter Property="Foreground" Value="{StaticResource titleColor1Brush}"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="12,6"/>
+            <Setter Property="Margin" Value="8,0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}"
+                                CornerRadius="8"
+                                BorderThickness="1"
+                                BorderBrush="{TemplateBinding BorderBrush}">
+                            <ContentPresenter HorizontalAlignment="Center"
+                                              VerticalAlignment="Center"
+                                              Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter Property="Background" Value="#4A8DFF"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+        <Style x:Key="ModernDataGrid" TargetType="DataGrid">
+            <Setter Property="Background" Value="{StaticResource secondaryBackColor1Brush}"/>
+            <Setter Property="Foreground" Value="{StaticResource titleColor1Brush}"/>
+            <Setter Property="BorderBrush" Value="#444"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="RowBackground" Value="{StaticResource panelColorBrush}"/>
+            <Setter Property="AlternatingRowBackground" Value="#2A2A2A"/>
+            <Setter Property="GridLinesVisibility" Value="None"/>
+            <Setter Property="HeadersVisibility" Value="Column"/>
+            <Setter Property="ScrollViewer.CanContentScroll" Value="True"/>
+            <Setter Property="ScrollViewer.PanningMode" Value="Both"/>
+            <Setter Property="Stylus.IsFlicksEnabled" Value="False"/>
+            <Setter Property="AutoGenerateColumns" Value="False"/>
+            <Setter Property="CanUserAddRows" Value="False"/>
+            <Setter Property="CanUserDeleteRows" Value="False"/>
+            <Setter Property="SelectionMode" Value="Single"/>
+            <Setter Property="SelectionUnit" Value="FullRow"/>
+            <Setter Property="RowHeaderWidth" Value="0"/>
+            <Setter Property="ColumnHeaderStyle">
+                <Setter.Value>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="Background" Value="#333"/>
+                        <Setter Property="Foreground" Value="{StaticResource color3Brush}"/>
+                        <Setter Property="FontWeight" Value="Bold"/>
+                        <Setter Property="Padding" Value="10,6"/>
+                        <Setter Property="BorderThickness" Value="0,0,0,1"/>
+                        <Setter Property="BorderBrush" Value="#444"/>
+                    </Style>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </UserControl.Resources>
+
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0"
+                CornerRadius="12"
+                Background="{StaticResource panelColorBrush}"
+                BorderBrush="{StaticResource winBorderColor1Brush}"
+                BorderThickness="1"
+                Padding="20"
+                Margin="0,0,0,10">
+            <StackPanel>
+                <TextBlock Text="📌 NHẬP THÔNG SỐ MÓNG" 
+                           FontSize="18" 
+                           FontWeight="Bold" 
+                           Foreground="{StaticResource color3Brush}" 
+                           Margin="0,0,0,10"/>
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="300"/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Grid.Column="0" Margin="8">
+                        <TextBlock Text="Tên móng"
+                                   FontWeight="SemiBold"
+                                   Foreground="{StaticResource color9Brush}"
+                                   Margin="0,0,0,4"
+                                   HorizontalAlignment="Center"/>
+                        <ComboBox Height="30"
+                                  ItemsSource="{Binding FoundationNames}"
+                                  SelectedValue="{Binding NewConstructionEntry.TenMong, Mode=TwoWay}"
+                                  IsEditable="True"
+                                  Background="{StaticResource panelColorBrush}"
+                                  BorderBrush="{StaticResource winBorderColor1Brush}"
+                                  Foreground="Black"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="0" Grid.Column="1" Margin="8">
+                        <TextBlock Text="Chiều sâu chôn móng (m)"
+                                   FontWeight="SemiBold"
+                                   Foreground="{StaticResource color9Brush}"
+                                   Margin="0,0,0,4"
+                                   HorizontalAlignment="Center"/>
+                        <TextBox Text="{Binding ChieuSauChonMongProxy, Mode=TwoWay}"
+                                 Height="30"
+                                 Style="{StaticResource ModernTextBox}"  Background="#252525"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="0" Grid.Column="2" Margin="8">
+                        <TextBlock Text="Chiều rộng móng (m)"
+                                   FontWeight="SemiBold"
+                                   Foreground="{StaticResource color9Brush}"
+                                   Margin="0,0,0,4"
+                                   HorizontalAlignment="Center"/>
+                        <TextBox Text="{Binding ChieuRongMongProxy, Mode=TwoWay}"
+                                 Height="30"
+                                 Style="{StaticResource ModernTextBox}" Background="#252525"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1" Grid.Column="0" Margin="8">
+                        <TextBlock Text="Chiều cao đài (m)"
+                                   FontWeight="SemiBold"
+                                   Foreground="{StaticResource color9Brush}"
+                                   Margin="0,0,0,4"
+                                   HorizontalAlignment="Center"/>
+                        <TextBox Text="{Binding ChieuCaoDaiProxy, Mode=TwoWay}"
+                                 Height="30"
+                                 Style="{StaticResource ModernTextBox}" Background="#252525"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="2" Grid.Column="0" Margin="8">
+                        <TextBlock Text="Cấp độ bê tông"
+                                   FontWeight="SemiBold"
+                                   Foreground="{StaticResource color9Brush}"
+                                   Margin="0,10,0,4"
+                                   HorizontalAlignment="Center"/>
+                        <ComboBox Height="30"
+                                  ItemsSource="{Binding DanhSachCapDoBeTong}"
+                                  SelectedValue="{Binding NewConstructionEntry.CapDoBeTong, Mode=TwoWay}"
+                                  Background="{StaticResource panelColorBrush}"
+                                  BorderBrush="{StaticResource winBorderColor1Brush}"
+                                  Foreground="Black"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="2" Grid.Column="1" Margin="8">
+                        <TextBlock Text="Loại thép"
+                                   FontWeight="SemiBold"
+                                   Foreground="{StaticResource color9Brush}"
+                                   Margin="0,10,0,4"
+                                   HorizontalAlignment="Center"/>
+                        <ComboBox Height="30"
+                                  ItemsSource="{Binding DanhSachLoaiThep}"
+                                  SelectedValue="{Binding NewConstructionEntry.LoaiThep, Mode=TwoWay}"
+                                  Background="{StaticResource panelColorBrush}"
+                                  BorderBrush="{StaticResource winBorderColor1Brush}"
+                                  Foreground="Black"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1" Grid.Column="2" Margin="8">
+                        <TextBlock Text="Chiều dày lớp bảo vệ (mm)"
+                                   FontWeight="SemiBold"
+                                   Foreground="{StaticResource color9Brush}"
+                                   Margin="0,10,0,4"
+                                   HorizontalAlignment="Center"/>
+                        <TextBox Text="{Binding NewConstructionEntry.ChieuDayLopBaoVe, Mode=TwoWay}"
+                                 Height="30"
+                                 Style="{StaticResource ModernTextBox}" Background="#252525"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1" Grid.Column="1" Margin="8">
+                        <TextBlock Text="Bề dày tường (m)"
+                                   FontWeight="SemiBold"
+                                   Foreground="{StaticResource color9Brush}"
+                                   Margin="0,10,0,4"
+                                   HorizontalAlignment="Center"/>
+                        <TextBox Text="{Binding BeDayTuongProxy, Mode=TwoWay}"
+                                 Height="30"
+                                 Style="{StaticResource ModernTextBox}" Background="#252525"/>
+                    </StackPanel>
+                    <StackPanel Grid.Column="3" Grid.RowSpan="3">
+                        <TextBlock Text="Mô phỏng sơ bộ"
+               HorizontalAlignment="Center"
+               Margin="0,0,0,5"
+               Foreground="{StaticResource plainTextColor1Brush}"
+               FontWeight="SemiBold"/>
+                        <Canvas Width="300"
+        Height="250"
+        Background="#2A2A2A"
+        ClipToBounds="True"
+        x:Name="ViewportCanvas"
+        MouseWheel="Viewport_MouseWheel"
+        MouseRightButtonDown="Viewport_MouseRightButtonDown"
+        MouseRightButtonUp="Viewport_MouseRightButtonUp"
+        MouseMove="Viewport_MouseMove">
+
+                            <!-- CANVAS NỘI DUNG -->
+                            <Canvas x:Name="DrawingCanvas">
+
+                                <Canvas.RenderTransform>
+                                    <TransformGroup>
+                                        <ScaleTransform x:Name="ScaleTf" ScaleX="1" ScaleY="1"/>
+                                        <TranslateTransform x:Name="TranslateTf" X="0" Y="0"/>
+                                    </TransformGroup>
+                                </Canvas.RenderTransform>
+
+                                <!-- = MẶT ĐẤT = -->
+                                <Line X1="0"
+              Y1="{Binding GroundLevelLineTopPx}"
+              X2="300"
+              Y2="{Binding GroundLevelLineTopPx}"
+              Stroke="White"
+              StrokeThickness="1"
+              StrokeDashArray="2 2"/>
+
+                                <TextBlock Text="Mặt đất tự nhiên"
+                   Foreground="White"
+                   Canvas.Left="5"
+                   Canvas.Top="{Binding GroundLevelLineTopPx,
+                                Converter={StaticResource TextPositionConverter}}"/>
+
+                                <!-- = TƯỜNG = -->
+                                <Rectangle Fill="#757575"
+                   Stroke="Black"
+                   StrokeThickness="1"
+                   Width="{Binding WallWidthPx}"
+                   Height="{Binding WallHeightPx}"
+                   Canvas.Left="{Binding WallWidthPx,
+                                 Converter={StaticResource CenterConverter}}"
+                   Canvas.Top="{Binding WallTopPx}"/>
+
+                                <!-- = ĐÀI MÓNG = -->
+                                <Rectangle Fill="#4DA3FF"
+                   Stroke="Black"
+                   StrokeThickness="1"
+                   Width="{Binding MongWidthPx}"
+                   Height="{Binding DaiHeightPx}"
+                   Canvas.Left="{Binding MongWidthPx,
+                                 Converter={StaticResource CenterConverter}}"
+                   Canvas.Top="{Binding DaiTopPx}"/>
+
+                            </Canvas>
+                        </Canvas>
+
+                    </StackPanel>
+                </Grid>
+
+                <StackPanel Orientation="Horizontal"
+                            HorizontalAlignment="Center"
+                            Margin="0,25,0,0">
+                    <Button Content="XÁC NHẬN"
+                            Command="{Binding AddConstructionCommand}"
+                            Padding="20,10"
+                            FontWeight="SemiBold"
+                            Background="{StaticResource color9Brush}"
+                            Foreground="{StaticResource primaryBackColor1Brush}"
+                            Style="{StaticResource PrimaryButton}"/>
+
+                    <Button Content="XÓA"
+                            Command="{Binding DeleteConstructionCommand}"
+                            Padding="20,10"
+                            FontWeight="SemiBold"
+                            Background="#FF6161"
+                            Foreground="{StaticResource primaryBackColor1Brush}"
+                            Margin="8,0,0,0"
+                            Style="{StaticResource PrimaryButton}"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <Border Grid.Row="1"
+                CornerRadius="12"
+                Background="{StaticResource secondaryBackColor1Brush}"
+                BorderBrush="{StaticResource winBorderColor1Brush}"
+                BorderThickness="1"
+                Padding="10">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="DANH SÁCH THÔNG SỐ"
+                           Grid.Row="0"
+                           FontSize="18"
+                           FontWeight="Bold"
+                           Foreground="{StaticResource color3Brush}"
+                           Margin="5"
+                           HorizontalAlignment="Center"/>
+
+                <DataGrid Grid.Row="1"
+                          ItemsSource="{Binding ConstructionList}"
+                          SelectedItem="{Binding SelectedConstructionEntry, Mode=TwoWay}"
+                          Style="{StaticResource ModernDataGrid}"
+                          Margin="0"
+                          HeadersVisibility="Column">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Tên móng"
+                                            Binding="{Binding TenMong}"
+                                            Foreground="{StaticResource titleColor2Brush}"
+                                            Width="1.2*"/>
+                        <DataGridTextColumn Header="Sâu chôn (m)"
+                                            Binding="{Binding ChieuSauChonMong}"
+                                            Foreground="{StaticResource titleColor2Brush}"
+                                            Width="*"/>
+                        <DataGridTextColumn Header="Rộng móng (m)"
+                                            Binding="{Binding ChieuRongMong}"
+                                            Foreground="{StaticResource titleColor2Brush}"
+                                            Width="*"/>
+                        <DataGridTextColumn Header="Bê tông"
+                                            Binding="{Binding CapDoBeTong}"
+                                            Foreground="{StaticResource titleColor2Brush}"
+                                            Width="0.8*"/>
+                        <DataGridTextColumn Header="Loại thép"
+                                            Binding="{Binding LoaiThep}"
+                                            Foreground="{StaticResource titleColor2Brush}"
+                                            Width="0.8*"/>
+                        <DataGridTextColumn Header="Lớp BV (mm)"
+                                            Binding="{Binding ChieuDayLopBaoVe}"
+                                            Foreground="{StaticResource titleColor2Brush}"
+                                            Width="*"/>
+                        <DataGridTextColumn Header="Tường (m)"
+                                            Binding="{Binding BeDayTuong}"
+                                            Foreground="{StaticResource titleColor2Brush}"
+                                            Width="*"/>
+                        <DataGridTextColumn Header="Cao đài (m)"
+                                            Binding="{Binding ChieuCaoDai}"
+                                            Foreground="{StaticResource titleColor2Brush}"
+                                            Width="*"/>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>
